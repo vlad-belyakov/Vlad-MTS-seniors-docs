@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "description": "Модель авторизации пользователя.",
+  "required": [
+    "login",
+    "password"
+  ],
+  "properties": {
+    "login": {
+      "description": "Логин пользователя в системе",
+      "type": "string",
+      "example": "maermilov"
+    },
+    "password": {
+      "description": "Пароль пользователя в системе",
+      "type": "string",
+      "example": "123456Qe"
+    }
+  }
+}

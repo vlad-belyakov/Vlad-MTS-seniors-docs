@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "description": "Модель ученика.",
+  "required": [
+    "name",
+    "surname"
+  ],
+  "properties": {
+    "id": {
+      "description": "Id пользователя",
+      "type": "string",
+      "format": "uuid"
+    },
+    "name": {
+      "description": "Имя пользователя",
+      "type": "string",
+      "example": "Максим"
+    },
+    "surname": {
+      "description": "Фамилия пользователя",
+      "type": "string",
+      "example": "Ермилов"
+    },
+    "patronymic": {
+      "description": "Отчество пользователя",
+      "type": "string",
+      "example": "Андреевич"
+    },
+    "gender": {
+      "description": "Пол пользователя",
+      "type": "string",
+      "example": "male",
+      "enum": [
+        "male",
+        "female"
+      ]
+    },
+    "birthYear": {
+      "description": "Год рождения пользователя",
+      "type": "integer",
+      "example": "1967"
+    },
+    "phone": {
+      "description": "Номер телефона пользователя",
+      "type": "string",
+      "example": "8(800) 555 35 35"
+    },
+    "email": {
+      "description": "Почта пользователя",
+      "type": "string",
+      "example": "maks.ermilov.03@mail.ru"
+    },
+    "jobField": {
+      "description": "Область занятости пользователя",
+      "type": "string",
+      "example": "it-разработка"
+    },
+    "jobPlace": {
+      "description": "Место работы пользователя",
+      "type": "string",
+      "example": "МТС"
+    },
+    "department": {
+      "description": "Отдел, где работает пользователь",
+      "type": "string",
+      "example": "Отдел обслуживания кофемашины на общей кухне"
+    },
+    "experience": {
+      "description": "Стаж пользователя(полных лет)",
+      "type": "integer",
+      "example": 15
+    }
+  }
+}

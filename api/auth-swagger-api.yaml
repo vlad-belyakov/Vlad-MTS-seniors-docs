@@ -1,0 +1,232 @@
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: API для авторизации пользователей.
+
+tags:
+  - name: Authorization
+    description: Авторизация пользователей.
+
+paths:
+  /api/v1/auth/student/register:
+    post:
+      tags:
+        - Authorization
+      operationId: register-student
+      summary: Метод для регистрации ученика.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/registration-student-data"
+      responses:
+        "200":
+          description: Новый пользователь зарегистрирован
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/student-dto"
+        "409":
+          description: Пользователь с таким номером телефона и почтой уже существует
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутрення ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/auth/teacher/register:
+    post:
+      tags:
+        - Authorization
+      operationId: register-teacher
+      summary: Метод для регистрации учителя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/registration-teacher-data"
+      responses:
+        "200":
+          description: Новый пользователь зарегистрирован
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/student-dto"
+        "409":
+          description: Пользователь с таким номером телефона и почтой уже существует
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутрення ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/auth/login:
+    post:
+      tags:
+        - Authorization
+      operationId: login
+      summary: Вход в учетную запись пользователя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/login-dto"
+      responses:
+        "200":
+          description: Вход успешно выполнен.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tokens-dto"
+        "401":
+          description: Неверные учетные данные пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутрення ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/auth/refresh:
+    post:
+      tags:
+        - Authorization
+      operationId: refresh
+      summary: Обновление токена авторизации пользователя.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/refresh-token-dto"
+      responses:
+        "200":
+          description: Токен доступа успешно обновлён.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tokens-dto"
+        "401":
+          description: Неверный токен обновления.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутрення ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/auth/change-password:
+    post:
+      tags:
+        - Authorization
+      operationId: changePassword
+      summary: Смена пароля.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/change-password-dto"
+      responses:
+        "200":
+          description: Смена пароля прошла успешна.
+        "401":
+          description: Неверный старый пароль.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутрення ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/auth/reset-password:
+    post:
+      tags:
+        - Authorization
+      operationId: resetPassword
+      summary: Сброс пароля.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/reset-password-dto"
+      responses:
+        "200":
+          description: Пароль успешно заменён на новый.
+        "404":
+          description: Нужно указать только одно поле login или email.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "401":
+          description: Неверный код восстановления.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутрення ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/auth/request-reset-password:
+    post:
+      tags:
+        - Authorization
+      operationId: requestResetPassword
+      summary: Запросить сброс пароля.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/reset-password-request"
+      responses:
+        "200":
+          description: Запрос на смену пароля отправлен.
+        "500":
+          description: Внутрення ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+components:
+  schemas:
+    registration-student-data:
+      $ref: "../dto/registration-student-data.json"
+    registration-teacher-data:
+      $ref: "../dto/registration-teacher-data.json"
+    tokens-dto:
+      $ref: "../dto/tokens-dto.json"
+    reset-password-request:
+      $ref: "../dto/reset-password-request.json"
+    reset-password-dto:
+      $ref: "../dto/reset-password-dto.json"
+    refresh-token-dto:
+      $ref: "../dto/refresh-token-dto.json"
+    change-password-dto:
+      $ref: "../dto/change-password-dto.json"
+    student-dto:
+      $ref: "../dto/student-dto.json"
+    login-dto:
+      $ref: "../dto/login-dto.json"
+    error-dto:
+      $ref: "../dto/error-dto.json"
+      

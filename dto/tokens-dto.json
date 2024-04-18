@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "description": "Модель токенов авторизации.",
+  "required": [
+    "refreshToken",
+    "accessToken"
+  ],
+  "properties": {
+    "refreshToken": {
+      "description": "Токен обновления",
+      "type": "string"
+    },
+    "accessToken": {
+      "description": "Токен доступа",
+      "type": "string"
+    }
+  }
+}

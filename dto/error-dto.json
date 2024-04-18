@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "description": "Модель ошибки.",
+  "required": [
+  ],
+  "properties": {
+    "message": {
+      "description": "Сообщение об ошибке",
+      "type": "string",
+      "example": "Не удалось выполнить действие"
+    },
+    "code": {
+      "description": "Код ошибки",
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

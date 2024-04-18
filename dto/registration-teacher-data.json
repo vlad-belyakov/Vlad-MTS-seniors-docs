@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "description": "Модель регистрации учителя.",
+  "required": [
+    "login",
+    "password",
+    "name",
+    "surname"
+  ],
+  "properties": {
+    "login": {
+      "description": "Логин пользователя в системе",
+      "type": "string",
+      "example": "kazimirka"
+    },
+    "password": {
+      "description": "Пароль пользователя в системе",
+      "type": "string",
+      "example": "135666QWEqrt"
+    },
+    "name": {
+      "description": "Имя пользователя",
+      "type": "string",
+      "example": "Казимир"
+    },
+    "surname": {
+      "description": "Фамилия пользователя",
+      "type": "string",
+      "example": "Лейхнер"
+    },
+    "patronymic": {
+      "description": "Отчество пользователя",
+      "type": "string",
+      "example": "Казимирович"
+    },
+    "birthYear": {
+      "description": "Год рождения пользователя",
+      "type": "integer",
+      "example": "1980"
+    },
+    "phone": {
+      "description": "Номер телефона пользователя",
+      "type": "string",
+      "example": "8(321) 123 45 67"
+    },
+    "email": {
+      "description": "Почта пользователя",
+      "type": "string",
+      "example": "kazimir.zal.up@mail.ru"
+    },
+    "jobField": {
+      "description": "Область занятости пользователя",
+      "type": "string",
+      "example": "it-разработка"
+    },
+    "experience": {
+      "description": "Стаж пользователя(полных лет)",
+      "type": "integer",
+      "example": 15
+    }
+  }
+}
