@@ -1,0 +1,262 @@
+openapi: '3.0.0'
+
+info:
+  title: api для взаимодействия с сервером тестов.
+  version: '1.0.0'
+  description: api для взаимодействия бекэнда с фронтэндом в области тестов.
+
+tags:
+  - name: test
+    description: интеграция бэка с фронтом.
+
+paths:
+  /api/v1/students:
+    get:
+      operation-id: get-all-students
+      summary: метод получения всех студентов
+      responses: 
+        "200":
+          description: список студентов получен
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/students-list"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "404":
+          description: Такая страница не найдена
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+    post:
+      operationId: add-student
+      summary: метод обновления/добавления студента
+      requestBody: 
+        content: 
+          application/json: 
+            schema:
+              $ref: "#/components/schemas/student-dto"
+      responses: 
+        "201":
+          description: Студент добавлен/обновлен
+        "404":
+          description: Такой студент не найден
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+    delete:
+      operationId: delete-test  
+      summary: Метод удаления теста
+      parameters:
+        - name: studentId
+          in: query
+          description: id студента
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses: 
+        "200":
+          description: Тест успешно удален
+        "404":
+          description: Такой тест не найден
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/students/{studentId}:
+    get:
+      operationId: get-student
+      summary: метод получения студента
+      parameters:
+        - name: studentId
+          in: path
+          description: id студента
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses: 
+        "200":
+          description: Личный кабинет студента получен
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/student-dto"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "404":
+          description: Такая страница не найдена
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/students/{studentId}/tests-list:
+    get:
+      operationId: get-tests-list
+      summary: метод получения всех тестов студента
+      parameters:
+        - name: studentId
+          in: path
+          description: id студента
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses: 
+        "200":
+          description: Тесты студента получены
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/tests-list"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "404":
+          description: Такая страница не найдена
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+    post:
+      operationId: add-test-to-student
+      summary: метод обновления/добавления теста
+      parameters:
+        - name: studentId
+          in: path
+          description: id студента
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody: 
+        content: 
+          application/json: 
+            schema:
+              $ref: "#/components/schemas/test"
+      responses: 
+        "201":
+          description: Тест добавлен/обновлен
+        "404":
+          description: Такой тест не найден
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+    delete:
+      operationId: delete-test-from-student
+      summary: метод удаления теста у студента
+      parameters:
+        - name: studentId
+          in: path
+          description: id студента
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: testId
+          in: query
+          description: id теста
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses: 
+        "201":
+          description: Тест удален
+        "404":
+          description: Такой тест не найден
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+  /api/v1/students/{studentId}/tests-list/{testId}:
+    get:
+      operationId: get-student-test
+      summary: метод получения теста студента по айди
+      parameters:
+        - name: studentId
+          in: path
+          description: id студента
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: testId
+          in: path
+          description: id теста
+          required: true
+          schema: 
+            type: integer
+            format: int64
+      responses: 
+        "200":
+          description: Тест студента получены
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/test"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error-dto"
+        "404":
+          description: Такая страница не найдена
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/error-dto"
+components:
+  schemas:
+    test:
+      $ref: "../tests/test.json"
+    tests-list:
+      $ref: "../tests/tests-list.json"
+    test-view:
+      $ref: "../tests/test-view.json"
+    error-dto:
+      $ref: "../dto/error-dto.json"
+    student-dto:
+      $ref: "../dto/student-dto.json"
+    students-list:
+      $ref: "../dto/students-list.json"
